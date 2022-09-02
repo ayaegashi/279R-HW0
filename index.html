@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<!-- Establishes the language and direction (sibling tags are ordered left to right) of the page. -->
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">  
+        <!-- Set the title of the page, which shows up on the tab. -->
+        <title>Todo List App</title>
+        <!-- Link the stylesheet. -->
+        <link rel="stylesheet" href="styles.css">
+        <!-- Establish the size of the webpage. -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <!-- Create header. ID allows javascript to reference and select this tag. -->
+        <div id="myDIV" class="header">
+            <h2>My To Do List</h2>
+            <!-- Input field where user enters a new task. ID allows script to read in the user's input. -->
+            <input type="text" id="myInput" placeholder="Type task here...">
+            <!-- Creates a button that when clicked will add the user's input to the unordered list below. newElement() defined in script.js -->
+            <span onclick="newElement()" class="addBtn">Add</span>
+        </div>
+        
+        <!-- Sample tasks in todo list. -->
+        <ul id="myUL">
+            <li>Sample task (click on me to complete)</li>
+            <li class="checked">Completed task</li>
+        </ul>
+    </body>
+    <!-- Link to the javascript file, which allows the page to be interactible. -->
+    <script src="script.js"></script>
+</html>
