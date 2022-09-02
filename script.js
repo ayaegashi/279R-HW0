@@ -1,13 +1,13 @@
-/* Create a "close" button and append it to each list item */
+/* Create "close" and "star" buttons and append to each existing list item */
 /* (this code is run once at the beginning and applies to the sample list items) */
-// getElementsByTagName returns an HTMLCollection (essentially an array) of objects 
+// getElementsByTagName returns an HTMLCollection (essentially an array) of html objects 
 // with the "li" or list item tag.
 var myNodelist = document.getElementsByTagName("LI");
-var i;
 // For each element in the unordered list, this loop creates an "x" button encapsulated 
 // inside a "span" element, which can be clicked to delete the item from the list.
+var i;
 for (i = 0; i < myNodelist.length; i++) {
-    // Create a new span element
+    // Create a new span element to hold the star
     var spanStar = document.createElement("SPAN");
     // "\u00D7" is a star character
     var txtStar = document.createTextNode("\u2606");
@@ -19,9 +19,9 @@ for (i = 0; i < myNodelist.length; i++) {
     // Adds the span as a nested child of the list item
     myNodelist[i].appendChild(spanStar);
 
-    // Create a new span element
+    // Create a new span element for the close button
     var spanX = document.createElement("SPAN");
-    // "\u00D7" is the multiplication symbol
+    // "\u00D7" is the multiplication symbol or "x"
     var txtX = document.createTextNode("\u00D7");
     // Gives the span the class "close"
     spanX.className = "close";
@@ -53,10 +53,8 @@ var j;
 // For each star button
 for (j = 0; j < stars.length; j++) {
     // Define what happens when a user clicks on star.
-    // This is automatically called when a user clicks on the star and the onClick
-    // event is triggered.
     stars[j].onclick = function() {
-        // Gets the id of the star, which is the number associated with the task's id
+        // Gets the id of the star, which is the same number associated with the task's id
         var starredItemId = this.id;
         // Get the task or item associated with the clicked-on star
         var starredItem = document.getElementById("it" + starredItemId);
@@ -100,7 +98,7 @@ function newElement() {
     var inputValue = document.getElementById("myInput").value;
     // Convert the inputValue into a text node that can be nested inside a list item.
     var t = document.createTextNode(inputValue);
-    // Nest the text node inside list item as a child.
+    // Nest the text node inside the list item as a child.
     li.appendChild(t);
     li.setAttribute('id', "it" + myNodelist.length);
     if (inputValue === '') {
@@ -113,7 +111,8 @@ function newElement() {
     // Reset the input field to be blank.
     document.getElementById("myInput").value = "";
 
-    // Lines 116 through 153 are effectively the same as lines 9 to 81
+    /* Lines 116 through 155 are effectively the same as lines 8 to 79 */
+    // Create a star button for the new task
     var spanStar = document.createElement("SPAN");
     var txtStar = document.createTextNode("\u2606");
     spanStar.className = "star";
@@ -121,12 +120,14 @@ function newElement() {
     spanStar.setAttribute("id", myNodelist.length - 1)
     myNodelist[i].appendChild(spanStar);
 
+    // Create a close button for the new task
     var spanX = document.createElement("SPAN");
     var txtX = document.createTextNode("\u00D7");
     spanX.className = "close";
     spanX.appendChild(txtX);
     myNodelist[i].appendChild(spanX);
 
+    // Define onclick behavior for close button
     for (i = 0; i < close.length; i++) {
         close[i].onclick = function() {
             var div = this.parentElement;
@@ -134,6 +135,7 @@ function newElement() {
         }
     }
 
+    // Define onclick behavior for star button
     for (j = 0; j < stars.length; j++) {
         stars[j].onclick = function() {
             var starredItemId = this.id;

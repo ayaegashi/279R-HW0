@@ -7,13 +7,14 @@
   
 /* Styling the todo list */
 ul {
-    /* Add margins to all sides of the ul */
+    /* Set margins ul to auto */
     margin-left: auto;
     margin-right: auto;
     /* Remove all padding */
     padding: 0;
     /* Remove bullet points */
     list-style: none;
+    /* Tasks list will never be wider than 1000px across */
     max-width: 1000px;
 }
 
