@@ -22,7 +22,7 @@ ul li {
     cursor: pointer;
     position: relative;
     padding: 12px 8px 12px 40px;
-    background: #eee;
+    background: rgb(241, 241, 241);
     font-size: 18px;
     /* The speed of the hover and click fade transitions. */
     transition: 0.2s;
@@ -32,11 +32,6 @@ ul li {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-}
-
-/* Set all odd list items to a different color (zebra-stripes) */
-ul li:nth-child(odd) {
-    background: #f9f9f9;
 }
 
 /* When a user hovers over a list item, the list item becomes darker */
@@ -75,8 +70,27 @@ ul li.checked::before {
 
 /* When a user hovers over the close button, the span tag's area will turn red. */
 .close:hover {
-    background-color: #f44336;
+    background-color: #f44336bb;
     color: white;
+}
+
+/* Style the star button */
+.star {
+    position: absolute;
+    right: 54px;
+    top: 0;
+    padding: 10px 16px 10px 16px;
+}
+
+/* When an element has the "starred" class, make the background yellow. */
+.starred {
+    background-color: #fbff00af;
+}
+
+/* When a user hovers over the star button, the span tag's area will turn yellow. */
+.star:hover {
+    background-color: #fbff00af;
+    color: rgb(0, 0, 0);
 }
 
 /* Style the header */
@@ -118,6 +132,7 @@ input {
     border-radius: 10px;
 }
 
+/* When the user hovers over the add button, the button will turn black */
 .addBtn:hover {
 background-color: rgb(0, 0, 0);
 }

@@ -8,15 +8,27 @@ var i;
 // inside a "span" element, which can be clicked to delete the item from the list.
 for (i = 0; i < myNodelist.length; i++) {
     // Create a new span element
-    var span = document.createElement("SPAN");
-    // "\u00D7" is the multiplication symbol
-    var txt = document.createTextNode("\u00D7");
-    // Gives the span the class "close"
-    span.className = "close";
-    // .appendChild method nests the "x" as a child of the span tag
-    span.appendChild(txt);
+    var spanStar = document.createElement("SPAN");
+    // "\u00D7" is a star character
+    var txtStar = document.createTextNode("\u2606");
+    // Gives the span the class "star"
+    spanStar.className = "star";
+    // .appendChild method nests the star character as a child of the span tag
+    spanStar.appendChild(txtStar);
+    spanStar.setAttribute("id", i)
     // Adds the span as a nested child of the list item
-    myNodelist[i].appendChild(span);
+    myNodelist[i].appendChild(spanStar);
+
+    // Create a new span element
+    var spanX = document.createElement("SPAN");
+    // "\u00D7" is the multiplication symbol
+    var txtX = document.createTextNode("\u00D7");
+    // Gives the span the class "close"
+    spanX.className = "close";
+    // .appendChild method nests the "x" as a child of the span tag
+    spanX.appendChild(txtX);
+    // Adds the span as a nested child of the list item
+    myNodelist[i].appendChild(spanX);
 }
 
 /* Click on a close button to hide the current list item */
@@ -32,6 +44,39 @@ for (i = 0; i < close.length; i++) {
         var div = this.parentElement;
         // Hide the entire element
         div.style.display = "none";
+    }
+} 
+
+/* Click on a star button to bring it to the top of the list */
+var stars = document.getElementsByClassName("star");
+var j;
+// For each star button
+for (j = 0; j < stars.length; j++) {
+    // Define what happens when a user clicks on star.
+    // This is automatically called when a user clicks on the star and the onClick
+    // event is triggered.
+    stars[j].onclick = function() {
+        // Gets the id of the star, which is the number associated with the task's id
+        var starredItemId = this.id;
+        // Get the task or item associated with the clicked-on star
+        var starredItem = document.getElementById("it" + starredItemId);
+        // In the case that the item has already been starred, it will have the class "starred"
+        // Re-clicking the star should de-prioritize the task
+        if (document.getElementById(starredItemId).classList.contains("starred")) {
+            // Remove the element from the list of tasks
+            document.getElementById("it" + starredItemId).remove();
+            // Append the element to the bottom of the list
+            document.getElementById("myUL").appendChild(starredItem);
+            // By toggling "starred" again, we remove the "starred" class from the star tag
+            this.classList.toggle("starred");
+        } else {
+            // Remove the element from its place in the list
+            document.getElementById("it" + starredItemId).remove();
+            // Add the tast to the top of the list of tasks
+            document.getElementById("myUL").insertBefore(starredItem, document.getElementById("myUL").firstChild);
+            // By toggling "starred" we add the "starred" class to the star tag
+            this.classList.toggle("starred");
+        }
     }
 } 
 
@@ -57,6 +102,7 @@ function newElement() {
     var t = document.createTextNode(inputValue);
     // Nest the text node inside list item as a child.
     li.appendChild(t);
+    li.setAttribute('id', "it" + myNodelist.length);
     if (inputValue === '') {
         // Warn the user that they cannot make an empty list item.
         alert("You must write something!");
@@ -67,12 +113,19 @@ function newElement() {
     // Reset the input field to be blank.
     document.getElementById("myInput").value = "";
 
-    // Lines 71 through 83 are the same as lines 9 to 36
-    var span = document.createElement("SPAN");
-    var txt = document.createTextNode("\u00D7");
-    span.className = "close";
-    span.appendChild(txt);
-    li.appendChild(span);
+    // Lines 116 through 153 are effectively the same as lines 9 to 81
+    var spanStar = document.createElement("SPAN");
+    var txtStar = document.createTextNode("\u2606");
+    spanStar.className = "star";
+    spanStar.appendChild(txtStar);
+    spanStar.setAttribute("id", myNodelist.length - 1)
+    myNodelist[i].appendChild(spanStar);
+
+    var spanX = document.createElement("SPAN");
+    var txtX = document.createTextNode("\u00D7");
+    spanX.className = "close";
+    spanX.appendChild(txtX);
+    myNodelist[i].appendChild(spanX);
 
     for (i = 0; i < close.length; i++) {
         close[i].onclick = function() {
@@ -80,4 +133,21 @@ function newElement() {
             div.style.display = "none";
         }
     }
+
+    for (j = 0; j < stars.length; j++) {
+        stars[j].onclick = function() {
+            var starredItemId = this.id;
+            var starredItem = document.getElementById("it" + starredItemId);
+            if (document.getElementById(starredItemId).classList.contains("starred")) {
+                document.getElementById("it" + starredItemId).remove();
+                document.getElementById("myUL").appendChild(starredItem);
+                this.classList.toggle("starred");
+            } else {
+                console.log(starredItem.classList);
+                document.getElementById("it" + starredItemId).remove();
+                document.getElementById("myUL").insertBefore(starredItem, document.getElementById("myUL").firstChild);
+                this.classList.toggle("starred");
+            }
+        }
+    } 
 }
